@@ -22,7 +22,7 @@ const routes = [
   },
 
   {
-    path: '/user',
+    path: '/users',
     name: 'UserList',
     component: UserList
   },

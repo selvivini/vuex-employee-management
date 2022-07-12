@@ -5,8 +5,8 @@ import HomeView from '../views/HomeView.vue'
 import VuexCounter from '../components/vuex/VuexCounter'
 // import EmployeesComponent from '../components/EmployeesComponent'
 import VuexEmployeesComponent from '../components/vuex/VuexEmployeesComponent'
-import UserList from '../components/UserList'
-
+// import UserList from '../components/UserList'
+import VuexUserList from '../components/vuex/VuexUserList'
 const routes = [
   {
     path: '/',
@@ -27,7 +27,7 @@ const routes = [
   {
     path: '/users',
     name: 'UserList',
-    component: UserList
+    component: VuexUserList
   },
 
   

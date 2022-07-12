@@ -21,7 +21,12 @@
             :key="employee.id"
             class="list-group-item list-group-item-success"
           >
-            <input class="form-check-input" type="checkbox" @change = "updateSelected(employee.id)" />
+            <input
+              :checked = "employee.isSelected"
+              class="form-check-input"
+              type="checkbox"
+              @change="updateSelected(employee.id)"
+            />
             {{ employee.name }}
           </li>
         </ul>
@@ -52,20 +57,18 @@
 
 
 <script>
-import { mapGetters } from 'vuex';
+import { mapGetters } from "vuex";
 export default {
   name: "VuexEmployeesComponent",
-  computed:{
-   ...mapGetters({employeeState: "getEmployeeState"})
+  computed: {
+    ...mapGetters({ employeeState: "getEmployeeState" }),
   },
   methods: {
-    updateSelected(empId){
-      console.log(this.$store)
-      this.$store.dispatch('changeSelected', {empId})
-    }
-   
-  }
-}
+    updateSelected(empId) {
+      this.$store.dispatch("changeSelected", { empId });
+    },
+  },
+};
 </script>
 
 

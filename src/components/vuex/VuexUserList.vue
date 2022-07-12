@@ -10,7 +10,7 @@
       </div>
     </div>
   </div>
-  <div class="container" v-if="loading">
+  <div class="container" v-if="userState.loading">
       <div class="row">
           <div class="col" >
               <SpinnerComponent/>
@@ -20,11 +20,11 @@
  <div class="container">
      <div class="row">
          <div class="col">
-             <div v-if="!loading && errorMessage" class="fw-bold text-danger">{{errorMessage}}</div>
+             <div v-if="!userState.loading && userState.errorMessage" class="fw-bold text-danger">{{userState.errorMessage}}</div>
          </div>
      </div>
  </div>
- <div class="container" v-if="!loading && users.length>0">
+ <div class="container" v-if="!userState.loading && userState.users.length>0">
      <div class="row">
          <div class="col">
           <table class="table table-hover text-center table-striped">
@@ -39,7 +39,7 @@
              </tr>
          </thead>
          <tbody>
-             <tr  v-for="user in users" :key="user.id">
+             <tr  v-for="user in userState.users" :key="user.id">
             <td>{{user.id}}</td>
             <td>{{user.name}}</td>
             <td>{{user.email}}</td>
@@ -55,10 +55,11 @@
 </template>
 
 <script>
-import axios from 'axios'
-import SpinnerComponent from './SpinnerComponent.vue'
+
+import SpinnerComponent from '../SpinnerComponent.vue'
+import { mapGetters } from 'vuex';
 export default  {
-    name: "UserList",
+    name: "VuexUserList",
     data: () => {
         return {
             loading: false,
@@ -67,20 +68,12 @@ export default  {
         };
     },
     created: async function () {
-        try {
-            this.loading = true;
-            let url = `https://jsonplaceholder.typicode.com/users`;
-            let response = await axios.get(url);
-            this.users = response.data;
-            console.log(this.users);
-            this.loading = false;
-        }
-        catch (error) {
-            this.loading = false;
-            this.errorMessage = error;
-        }
-    },
-    components: { SpinnerComponent }
+       this.$store.dispatch("UserListModule/getUsers")
+     },
+    components: { SpinnerComponent },
+    computed: {
+        ...mapGetters({userState: "getUsersState"})
+    }
 }
 </script>
 
